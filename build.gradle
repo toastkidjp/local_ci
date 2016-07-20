@@ -3,7 +3,7 @@ sourceCompatibility = 1.8
 
 version = '0.0.1'
 
-def mainClassName   = 'jp.toastkid.gui.jfx.wiki.Main'
+def mainClassName   = 'jp.toastkid.localci.Main'
 def defaultEncoding = 'UTF-8'
 def jdkVersion      = '1.8'
 def javafxHome      = System.getenv('JAVA_HOME')
@@ -12,30 +12,36 @@ def javafxHome      = System.getenv('JAVA_HOME')
 
 repositories {
     mavenCentral()
+    maven {
+      url "https://repo.gradle.org/gradle/repo"
+    }
 }
 
 dependencies {
+    compile 'org.eclipse.collections:eclipse-collections:8.0.0-M1'
     compile 'org.eclipse.jgit:org.eclipse.jgit:4.4.1.201607150455-r'
-
-    compile "io.projectreactor:reactor-core:2.5.0.M4"
+    compile 'org.gradle:gradle-tooling-api:2.13'
+    compile "io.projectreactor:reactor-core:3.0.0.RC1"
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.9.5'
 }
 
 compileJava {
-    //add required JavaFX libs to compile classpath
-    sourceSets.main.compileClasspath += configurations.runtime
     sourceSets.main.compileClasspath += configurations.testCompile
 }
 
 run {
     //add required JavaFX libs to runtime classpath
-    classpath += configurations.runtime
+    classpath += configurations.compile
 }
 
 jar {
     manifest {
         attributes 'Main-Class' : mainClassName
     }
+    exclude ("META-INF/*.SF")
+    exclude ("META-INF/*.DSA")
+    exclude ("META-INF/*.RSA")
     destinationDir = projectDir
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 }

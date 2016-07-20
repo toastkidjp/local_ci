@@ -1,5 +1,4 @@
 *.lnk
-nameloader-*-jmh.jar
 logs/
 .git/
 .gradle/
@@ -14,3 +13,4 @@ gradlew*
 .class
 .externalToolBuilders/
 *.bin
+*.jar
