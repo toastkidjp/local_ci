@@ -1,0 +1,16 @@
+*.lnk
+nameloader-*-jmh.jar
+logs/
+.git/
+.gradle/
+.settings/
+build/
+bin/
+gradle/
+gradlew*
+*.exe
+.classpath
+.project
+.class
+.externalToolBuilders/
+*.bin
